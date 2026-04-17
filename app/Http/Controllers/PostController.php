@@ -25,8 +25,16 @@ class PostController extends Controller
         if ($request->category_id) {
             $query->where('category_id', $request->category_id);
         }
-        $posts = $query->latest()->paginate(10);
-        return response()->json($posts);
+        try {
+            $posts = $query->latest()->paginate(10);
+            return response()->json($posts);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching posts',
+                'error' => $e->getMessage()
+            ], 500);
+        }   
     }
     // it is responsible to show  posts that is search by slug
     function show($slug)
