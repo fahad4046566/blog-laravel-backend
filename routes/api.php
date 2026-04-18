@@ -23,7 +23,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/admin/posts',[PostController::class,'index']);
     Route::post('/admin/posts',[PostController::class,'store']);
     Route::put('/admin/posts/{id}',[PostController::class,'update']);
